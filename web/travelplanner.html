@@ -9,15 +9,16 @@
     <script async type="application/dart" src="main.dart"></script>
     <script async src="packages/browser/dart.js"></script>
     <script src="packages/shadow_dom/shadow_dom.min.js"></script>
+    <script src='https://cdn.firebase.com/v0/firebase.js'></script>
     
     <link rel="stylesheet" href="css/travelplanner.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     
   </head>
-  <body ng-cloak todo-planner-controller>
-    <h1>TravelPlanner</h1>
-    
-    <ng-view></ng-view>
-
+  <body ng-cloak>
+    <div class="container-fluid">
+      <h1>TravelPlanner</h1>
+      <ng-view></ng-view>
+    </div>
   </body>
 </html>

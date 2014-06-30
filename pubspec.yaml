@@ -4,7 +4,11 @@ dependencies:
   angular: '>=0.12.0 <0.13.0'
   browser: any
   shadow_dom: any
+  js: any
+  angular_ui: any
 transformers:
 - angular:
      html_files:
       - web/view/overview.html
+      - web/view/add.html
+      
