@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html ng-app>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,17 +8,15 @@
     
     <script async type="application/dart" src="travelplanner.dart"></script>
     <script async src="packages/browser/dart.js"></script>
+    <script src="packages/shadow_dom/shadow_dom.min.js"></script>
     
-    <link rel="stylesheet" href="travelplanner.css">
+    <link rel="stylesheet" href="css/travelplanner.css">
   </head>
-  <body>
+  <body ng-cloak todo-planner-controller>
     <h1>TravelPlanner</h1>
     
-    <p>Hello world from Dart!</p>
+    <p ng-repeat="plan in tp.plans">{{ plan }}</p>
     
-    <div id="sample_container_id">
-      <p id="sample_text_id">Click me!</p>
-    </div>
 
   </body>
 </html>

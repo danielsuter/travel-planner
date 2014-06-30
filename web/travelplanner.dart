@@ -1,16 +1,20 @@
 import 'dart:html';
+import 'package:angular/angular.dart';
+import 'package:angular/application_factory.dart';
+
+
 
 void main() {
-  querySelector("#sample_text_id")
-      ..text = "Click me!"
-      ..onClick.listen(reverseText);
+  applicationFactory().addModule(new TravelPlannerModule()).run();
 }
 
-void reverseText(MouseEvent event) {
-  var text = querySelector("#sample_text_id").text;
-  var buffer = new StringBuffer();
-  for (int i = text.length - 1; i >= 0; i--) {
-    buffer.write(text[i]);
+class TravelPlannerModule extends Module {
+  TravelPlannerModule() {
+    bind(TravelPlannerController);
   }
-  querySelector("#sample_text_id").text = buffer.toString();
+}
+
+@Controller(selector: '[todo-planner-controller]', publishAs: 'tp')
+class TravelPlannerController {
+  List<String> plans = ["Reise 1", "Reise 2"];
 }
