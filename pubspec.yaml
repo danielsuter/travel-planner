@@ -1,0 +1,7 @@
+name: TravelPlanner
+description: A sample web application
+dependencies:
+  angular: any
+  browser: any
+  shadow_dom: any
+  
