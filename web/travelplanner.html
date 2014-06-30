@@ -6,17 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TravelPlanner</title>
     
-    <script async type="application/dart" src="travelplanner.dart"></script>
+    <script async type="application/dart" src="main.dart"></script>
     <script async src="packages/browser/dart.js"></script>
     <script src="packages/shadow_dom/shadow_dom.min.js"></script>
     
     <link rel="stylesheet" href="css/travelplanner.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    
   </head>
   <body ng-cloak todo-planner-controller>
     <h1>TravelPlanner</h1>
     
-    <p ng-repeat="plan in tp.plans">{{ plan }}</p>
-    
+    <table class="table">
+      <tr>
+        <th>Name</th>
+        <th>Von</th>
+        <th>Bis</th>
+      </tr>
+      <tr ng-repeat="plan in tp.plans">
+        <td>{{ plan.name }}</td>
+        <td>{{ plan.getFromAsDate() }}</td>
+        <td>{{ plan.getToAsDate() }}</td>
+      </tr>
+    </table>
 
   </body>
 </html>
