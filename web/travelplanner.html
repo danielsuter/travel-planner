@@ -17,18 +17,7 @@
   <body ng-cloak todo-planner-controller>
     <h1>TravelPlanner</h1>
     
-    <table class="table">
-      <tr>
-        <th>Name</th>
-        <th>Von</th>
-        <th>Bis</th>
-      </tr>
-      <tr ng-repeat="plan in tp.plans">
-        <td>{{ plan.name }}</td>
-        <td>{{ plan.getFromAsDate() }}</td>
-        <td>{{ plan.getToAsDate() }}</td>
-      </tr>
-    </table>
+    <ng-view></ng-view>
 
   </body>
 </html>

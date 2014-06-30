@@ -1,0 +1,15 @@
+<div todo-planner-controller>
+  <table class="table">
+    <tr>
+      <th>Name</th>
+      <th>Von</th>
+      <th>Bis</th>
+    </tr>
+    <tr ng-repeat="plan in tp.plans">
+      <td>{{ plan.name }}</td>
+      <td>{{ plan.getFromAsDate() }}</td>
+      <td>{{ plan.getToAsDate() }}</td>
+    </tr>
+  </table>
+
+</div>
