@@ -1,5 +1,7 @@
+library travel_plan;
+
 import 'package:intl/intl.dart';
-import 'package:TravelPlanner/model/TravelStep.dart';
+import 'package:TravelPlanner/model/travel_step.dart';
 
 class TravelPlan {
   
