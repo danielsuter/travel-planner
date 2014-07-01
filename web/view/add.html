@@ -25,11 +25,11 @@
       <button type="button" class="btn btn-warning" ng-click="tp2.cancel()">Cancel</button>
     </div>
     
-    <div class="row col-xs-12">
-      <travel-step step="tp2.step"></travel-step>
+    <div class="row col-xs-12" ng-repeat="step in tp2.steps">
+      <travel-step step="step"></travel-step>
     </div>
     
      <div class="row col-xs-12">
-        <button type="button" class="btn btn-success" style="float: right;">Add step...</button>
+        <button type="button" class="btn btn-success" ng-click="tp2.addStep()" style="float: right;">Add step...</button>
      </div>
 </div>

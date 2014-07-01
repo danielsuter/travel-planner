@@ -18,7 +18,7 @@ class AddTravelPlanController {
   
   bool isValid = true;
   
-  TravelStep step = new TravelStep();
+  List<TravelStep> steps = new List<TravelStep>();
   
   AddTravelPlanController(this.router);
   
@@ -42,5 +42,9 @@ class AddTravelPlanController {
   
   void cancel() {
     
+  }
+  
+  void addStep() {
+    steps.add(new TravelStep());
   }
 }
