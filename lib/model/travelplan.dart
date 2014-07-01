@@ -17,11 +17,17 @@ class TravelPlan {
   // TODO not null getter for steps
   
   String getFromAsDate() {
+    if(from == 0 || from == null) {
+      return "";
+    }
     var dateFormat = new DateFormat("dd.MM.yyyy");
     return dateFormat.format(new DateTime.fromMillisecondsSinceEpoch(from));
   }
   
   String getToAsDate() {
+    if(to == 0 || to == null) {
+      return "";
+    }
     var dateFormat = new DateFormat("dd.MM.yyyy");
     return dateFormat.format(new DateTime.fromMillisecondsSinceEpoch(to));
   }

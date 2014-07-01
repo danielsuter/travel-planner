@@ -1,9 +1,9 @@
-<div todo-planner-controller>
+<div>
   <div class="form-group">
-      <a href="#/add" class="btn btn-primary" role="button">Add....</a>
+      <button class="btn btn-primary" role="button" ng-click="tp.addNew()">Add....</button>
   </div>
 
-  <table class="table">
+  <table class="table table-hover">
     <tr>
       <th>Name</th>
       <th>Von</th>
@@ -11,9 +11,9 @@
       <th></th>
     </tr>
     <tr ng-repeat="plan in tp.plans">
-      <td>{{ plan.name }}</td>
-      <td>{{ plan.getFromAsDate() }}</td>
-      <td>{{ plan.getToAsDate() }}</td>
+      <td ng-click="tp.edit(plan)">{{ plan.name }}</td>
+      <td ng-click="tp.edit(plan)">{{ plan.getFromAsDate() }}</td>
+      <td ng-click="tp.edit(plan)">{{ plan.getToAsDate() }}</td>
       <td>
         <button type="button" class="btn btn-danger" ng-click="tp.delete(plan)">Delete</button>
       </td>

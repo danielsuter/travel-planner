@@ -6,12 +6,15 @@ import 'package:js/js.dart' as js;
 
 @Controller(selector: '[todo-planner-controller]', publishAs: 'tp')
 class TravelPlannerController {
-  var dayInMiliseconds = 86400000;
   final plansFirebase = new js.Proxy(js.context.Firebase, 'https://travel-planner-dart.firebaseio.com/plans');
-
+  
+  Router router;
+  
   List<TravelPlan> plans = [];
-
-  TravelPlannerController() {
+  
+  TravelPlan selectedPlan;
+  
+  TravelPlannerController(this.router) {
     print("controller travel called");
     plansFirebase.on('child_added', (snapshot, String previousChildName) {
       String id = snapshot.name();
@@ -27,12 +30,20 @@ class TravelPlannerController {
       plans.removeWhere((plan) => plan.id == id);
       print('removed child $id');
     }); 
+    
+    plansFirebase.on('child_changed', (snapshot, String previousChildName) {
+      print("child changed, todo implement");
+    }); 
   }
   
-  void add() {
-    var now = new DateTime.now();
-    var nowInMiliseconds = now.millisecondsSinceEpoch;
-    plansFirebase.push(js.map({"name": 'Reise ${nowInMiliseconds}' , "from": nowInMiliseconds, "to": nowInMiliseconds}));
+  void addNew() {
+    selectedPlan = new TravelPlan(null, null, null, null);
+    router.go("add", {});
+  }
+  
+  void edit(TravelPlan plan) {
+    selectedPlan = plan;
+    router.go("add", {});
   }
   
   void delete(TravelPlan planToDelete) {

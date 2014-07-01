@@ -14,6 +14,7 @@ import 'package:TravelPlanner/util/date_util.dart';
 class TravelPlanComponent {
   final plansFirebase = new js.Proxy(js.context.Firebase, 'https://travel-planner-dart.firebaseio.com/plans');
   Router router;
+  Scope scope;
   
   String name;
   String fromAsString;
@@ -21,9 +22,19 @@ class TravelPlanComponent {
   
   bool isValid = true;
   
-  TravelPlan plan = new TravelPlan(null, null, null, null); 
+  // Deprecated but impossible to replace, since the new syntax is not ready
+  @NgTwoWay('plan')
+  TravelPlan plan;
   
-  TravelPlanComponent(this.router);
+  TravelPlanComponent(this.router, this.scope) {
+    scope.watch("cmp.plan", (TravelPlan newValue, oldValue) {
+      if(newValue != null) {
+        name = newValue.name;
+        fromAsString = newValue.getFromAsDate();
+        toAsString = newValue.getToAsDate();
+      }
+    });
+  }
   
   void add() {
     
