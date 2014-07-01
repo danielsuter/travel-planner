@@ -12,7 +12,7 @@ class TravelPlannerController {
   List<TravelPlan> plans = [];
 
   TravelPlannerController() {
-    
+    print("controller travel called");
     plansFirebase.on('child_added', (snapshot, String previousChildName) {
       final message = snapshot.val();
       print("Converting name: ${message.name} from: ${message.from} : to: ${message.to}...");
@@ -25,5 +25,9 @@ class TravelPlannerController {
     var now = new DateTime.now();
     var nowInMiliseconds = now.millisecondsSinceEpoch;
     plansFirebase.push(js.map({"name": 'Reise ${nowInMiliseconds}' , "from": nowInMiliseconds, "to": nowInMiliseconds}));
+  }
+  
+  void delete(TravelPlan planToDelete) {
+    print("Delete ${planToDelete.name}");
   }
 }

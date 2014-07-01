@@ -1,27 +1,40 @@
 library add_travelplan_controller;
 
 import 'package:angular/angular.dart';
-//import 'package:TravelPlanner/model/travelplan.dart';
-//import 'package:js/js.dart' as js;
+import 'package:TravelPlanner/model/travelplan.dart';
+import 'package:js/js.dart' as js;
+import 'package:intl/intl.dart';
 
 @Controller(selector: '[add-travelplan-controller]', publishAs: 'tp2')
 class AddTravelPlanController {
-//  final plansFirebase = new js.Proxy(js.context.Firebase, 'https://travel-planner-dart.firebaseio.com/plans');
+  final plansFirebase = new js.Proxy(js.context.Firebase, 'https://travel-planner-dart.firebaseio.com/plans');
+  final String datePattern = "dd.MM.yyyy";
+  Router router;
   
-  String test = "test";
-
-  TravelPlannerController() {
-    
-//    plansFirebase.on('child_added', (snapshot, String previousChildName) {
-//      final message = snapshot.val();
-//      
-//    });
-  }
+  String name;
+  String fromAsString;
+  String toAsString;
+  
+  bool isValid = true;
+  
+  AddTravelPlanController(this.router);
   
   void add() {
-//    var now = new DateTime.now();
-//    var nowInMiliseconds = now.millisecondsSinceEpoch;
-//    plansFirebase.push(js.map({"name": 'Reise ${nowInMiliseconds}' , "from": nowInMiliseconds, "to": nowInMiliseconds}));
+    
+    DateTime from;
+    DateTime to;
+    try {
+      from = new DateFormat(datePattern).parse(fromAsString);
+      to = new DateFormat(datePattern).parse(toAsString);
+    } on FormatException catch(e, stacktrace) {
+      isValid = false;
+    }
+    
+    if(isValid) {
+      TravelPlan plan = new TravelPlan(name, from.millisecondsSinceEpoch, to.millisecondsSinceEpoch);
+      plansFirebase.push(js.map(plan.toMap()));
+      this.router.go('view_default', {});
+    }
   }
   
   void cancel() {

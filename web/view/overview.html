@@ -8,11 +8,15 @@
       <th>Name</th>
       <th>Von</th>
       <th>Bis</th>
+      <th></th>
     </tr>
     <tr ng-repeat="plan in tp.plans">
       <td>{{ plan.name }}</td>
       <td>{{ plan.getFromAsDate() }}</td>
       <td>{{ plan.getToAsDate() }}</td>
+      <td>
+        <button type="button" class="btn btn-danger" ng-click="tp.delete(plan.name)">Delete</button>
+      </td>
     </tr>
   </table>
 
