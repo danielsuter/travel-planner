@@ -4,6 +4,7 @@ import 'package:TravelPlanner/travel_planner.dart';
 import 'package:TravelPlanner/add_travel_plan.dart';
 import 'package:TravelPlanner/routing/travel_planner_router.dart';
 import 'package:logging/logging.dart';
+import 'package:TravelPlanner/travelstep/travel_step_component.dart';
 
 
 void main() {
@@ -17,6 +18,7 @@ class TravelPlannerModule extends Module {
   TravelPlannerModule() {
     bind(TravelPlannerController);
     bind(AddTravelPlanController);
+    bind(TravelStepComponent);
     
     bind(RouteInitializerFn, toValue: travelPlannerRouteInitializer);
     bind(NgRoutingUsePushState, toFactory: (_) => new NgRoutingUsePushState.value(false));

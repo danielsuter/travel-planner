@@ -11,4 +11,5 @@ transformers:
      html_files:
       - web/view/overview.html
       - web/view/add.html
+      - lib/travelstep/travel_step_component.html
       
