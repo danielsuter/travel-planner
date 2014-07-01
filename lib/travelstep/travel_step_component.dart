@@ -21,8 +21,10 @@ class TravelStepComponent {
   String type; 
   String transport;
   
-  // TODO replace with model
-  TravelStep step = new TravelStep();
+  // Deprecated but impossible to replace, since the new syntax is not ready
+  @NgTwoWay('step')
+  TravelStep step;
+  
   
   TravelStepComponent(this.scope) {
     print("constructor of TravelStepComponent called");

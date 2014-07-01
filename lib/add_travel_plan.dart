@@ -4,6 +4,7 @@ import 'package:angular/angular.dart';
 import 'package:TravelPlanner/model/travelplan.dart';
 import 'package:js/js.dart' as js;
 import 'package:intl/intl.dart';
+import 'package:TravelPlanner/model/travel_step.dart';
 
 @Controller(selector: '[add-travelplan-controller]', publishAs: 'tp2')
 class AddTravelPlanController {
@@ -16,6 +17,8 @@ class AddTravelPlanController {
   String toAsString;
   
   bool isValid = true;
+  
+  TravelStep step = new TravelStep();
   
   AddTravelPlanController(this.router);
   
