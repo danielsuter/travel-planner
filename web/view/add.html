@@ -25,9 +25,17 @@
       <a href="/" class="btn btn-warning">Cancel</a>
     </div>
     
-    <div class="row col-xs-12" ng-repeat="step in tp2.plan.steps">
-      <travel-step step="step"></travel-step>
+    <div class="row" ng-repeat="step in tp2.plan.steps">
+       <div class="col-xs-11">
+        <travel-step step="step"></travel-step>
+      </div>   
+      <div class="col-xs-1">
+        <span class="badge" style="margin-top: 20px;">
+          <span class="glyphicon glyphicon-remove" ng-click="tp2.removeStep(step)"></span>
+        </span>
+      </div>
     </div>
+
     
      <div class="row col-xs-12">
         <button type="button" class="btn btn-success" ng-click="tp2.addStep()" style="float: right;">Add step...</button>

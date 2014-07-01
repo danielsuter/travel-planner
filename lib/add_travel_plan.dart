@@ -18,6 +18,10 @@ class AddTravelPlanController {
   
   bool isValid = true;
   
+  Function callback = () {
+    print("it works!");
+  };
+  
   TravelPlan plan = new TravelPlan(null, null, null, null);
   
   AddTravelPlanController(this.router);
@@ -45,8 +49,8 @@ class AddTravelPlanController {
     }
   }
   
-  void cancel() {
-    
+  void removeStep(TravelStep step) {
+    plan.steps.remove(step);
   }
   
   void addStep() {
