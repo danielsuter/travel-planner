@@ -18,7 +18,7 @@ class AddTravelPlanController {
   
   bool isValid = true;
   
-  List<TravelStep> steps = new List<TravelStep>();
+  TravelPlan plan = new TravelPlan(null, null, null, null);
   
   AddTravelPlanController(this.router);
   
@@ -34,8 +34,9 @@ class AddTravelPlanController {
     }
     
     if(isValid) {
-      TravelPlan plan = new TravelPlan(null, name, from.millisecondsSinceEpoch, to.millisecondsSinceEpoch);
-      plan.steps = steps;
+      plan.name = name;
+      plan.from = from.millisecondsSinceEpoch;
+      plan.to = to.millisecondsSinceEpoch;
       
       print("Generated map: ${plan.toMap()}");
       
@@ -49,6 +50,6 @@ class AddTravelPlanController {
   }
   
   void addStep() {
-    steps.add(new TravelStep());
+    plan.steps.add(new TravelStep());
   }
 }
