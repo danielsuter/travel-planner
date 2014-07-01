@@ -3,8 +3,9 @@ import 'package:TravelPlanner/model/TravelStep.dart';
 
 class TravelPlan {
   
-  TravelPlan (this.name, this.from, this.to);
+  TravelPlan (this.id, this.name, this.from, this.to);
   
+  String id;
   String name;
   int from;
   int to;

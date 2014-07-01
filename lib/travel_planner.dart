@@ -14,11 +14,19 @@ class TravelPlannerController {
   TravelPlannerController() {
     print("controller travel called");
     plansFirebase.on('child_added', (snapshot, String previousChildName) {
-      final message = snapshot.val();
-      print("Converting name: ${message.name} from: ${message.from} : to: ${message.to}...");
+      String id = snapshot.name();
       
-      plans.add(new TravelPlan(message.name, message.from, message.to));
+      final message = snapshot.val();
+      print("Converting id: ${id} name: ${message.name} from: ${message.from} : to: ${message.to}...");
+      
+      plans.add(new TravelPlan(id, message.name, message.from, message.to));
     });
+    
+    plansFirebase.on('child_removed', (snapshot, String previousChildName) {
+      String id = snapshot.name();
+      plans.removeWhere((plan) => plan.id == id);
+      print('removed child $id');
+    }); 
   }
   
   void add() {
@@ -28,6 +36,6 @@ class TravelPlannerController {
   }
   
   void delete(TravelPlan planToDelete) {
-    print("Delete ${planToDelete.name}");
+    plansFirebase.child(planToDelete.id).set(null);
   }
 }

@@ -31,7 +31,7 @@ class AddTravelPlanController {
     }
     
     if(isValid) {
-      TravelPlan plan = new TravelPlan(name, from.millisecondsSinceEpoch, to.millisecondsSinceEpoch);
+      TravelPlan plan = new TravelPlan(null, name, from.millisecondsSinceEpoch, to.millisecondsSinceEpoch);
       plansFirebase.push(js.map(plan.toMap()));
       this.router.go('view_default', {});
     }
