@@ -12,7 +12,7 @@ class TravelPlan {
   int from;
   int to;
   
-  List<TravelStep> steps;
+  List<TravelStep> steps = new List();
   
   // TODO not null getter for steps
   
@@ -27,6 +27,9 @@ class TravelPlan {
   }
   
   Map toMap() {
-    return {"name": name, "from": from, "to": to};
+    List<Map> jsSteps = [];
+    steps.forEach((step) => jsSteps.add(step.toMap()));
+    
+    return {"name": name, "from": from, "to": to, "steps": jsSteps};
   }
 }

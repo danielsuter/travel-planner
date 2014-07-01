@@ -35,6 +35,10 @@ class AddTravelPlanController {
     
     if(isValid) {
       TravelPlan plan = new TravelPlan(null, name, from.millisecondsSinceEpoch, to.millisecondsSinceEpoch);
+      plan.steps = steps;
+      
+      print("Generated map: ${plan.toMap()}");
+      
       plansFirebase.push(js.map(plan.toMap()));
       this.router.go('view_default', {});
     }
