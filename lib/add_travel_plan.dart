@@ -3,13 +3,12 @@ library add_travelplan_controller;
 import 'package:angular/angular.dart';
 import 'package:TravelPlanner/model/travelplan.dart';
 import 'package:js/js.dart' as js;
-import 'package:intl/intl.dart';
 import 'package:TravelPlanner/model/travel_step.dart';
+import 'package:TravelPlanner/util/date_util.dart';
 
 @Controller(selector: '[add-travelplan-controller]', publishAs: 'tp2')
 class AddTravelPlanController {
   final plansFirebase = new js.Proxy(js.context.Firebase, 'https://travel-planner-dart.firebaseio.com/plans');
-  final String datePattern = "dd.MM.yyyy";
   Router router;
   
   String name;
@@ -17,10 +16,6 @@ class AddTravelPlanController {
   String toAsString;
   
   bool isValid = true;
-  
-  Function callback = () {
-    print("it works!");
-  };
   
   TravelPlan plan = new TravelPlan(null, null, null, null);
   
@@ -31,8 +26,8 @@ class AddTravelPlanController {
     DateTime from;
     DateTime to;
     try {
-      from = new DateFormat(datePattern).parse(fromAsString);
-      to = new DateFormat(datePattern).parse(toAsString);
+      from = DateUtil.DATE_FORMAT.parse(fromAsString);
+      to = DateUtil.DATE_FORMAT.parse(toAsString);
     } on FormatException catch(e, stacktrace) {
       isValid = false;
     }
