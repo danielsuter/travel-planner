@@ -46,12 +46,9 @@
   
     <div>
       <label>Transport</label><br /> 
-      <label class="radio-inline"> 
-        <input type="radio" name="transportType" ng-model="cmp.transport" value="CAR">Car
-      </label>
-
-      <label class="radio-inline"> 
-        <input type="radio" name="transportType" ng-model="cmp.transport" value="FLIGHT">Flight
+      
+      <label class="radio-inline" ng-repeat="transportType in cmp.transportTypes"> 
+        <input type="radio" name="transportType" ng-model="cmp.transport" value="{{transportType.name}}">{{ transportType.name }}
       </label>
     </div>    
   </form>

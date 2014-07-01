@@ -25,6 +25,8 @@ class TravelStepComponent {
   @NgTwoWay('step')
   TravelStep step;
   
+  List<TransportType> transportTypes = TransportType.values;
+  
   
   TravelStepComponent(this.scope) {
     print("constructor of TravelStepComponent called");
