@@ -12,14 +12,13 @@
     </tr>
     <tr ng-repeat="plan in tp.plans">
       <td ng-click="tp.edit(plan)">{{ plan.name }}</td>
-      <td ng-click="tp.edit(plan)">{{ plan.getFromAsDate() }}</td>
-      <td ng-click="tp.edit(plan)">{{ plan.getToAsDate() }}</td>
+      <td ng-click="tp.edit(plan)">{{ plan.from }}</td>
+      <td ng-click="tp.edit(plan)">{{ plan.to }}</td>
       <td>
         <button type="button" class="btn btn-danger" ng-click="tp.delete(plan)">Delete</button>
       </td>
     </tr>
   </table>
-
 
   <span ng-show="tp.plans.length == 0">Loading...</span>
 </div>

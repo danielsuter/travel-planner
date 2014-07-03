@@ -30,8 +30,8 @@ class TravelPlanComponent {
     scope.watch("cmp.plan", (TravelPlan newValue, oldValue) {
       if(newValue != null) {
         name = newValue.name;
-        fromAsString = newValue.getFromAsDate();
-        toAsString = newValue.getToAsDate();
+        fromAsString = newValue.from;
+        toAsString = newValue.to;
       }
     });
   }
@@ -49,8 +49,8 @@ class TravelPlanComponent {
     
     if(isValid) {
       plan.name = name;
-      plan.from = from.millisecondsSinceEpoch;
-      plan.to = to.millisecondsSinceEpoch;
+      plan.to = toAsString;
+      plan.from = fromAsString;
       
       print("Generated map: ${plan.toMap()}");
       
