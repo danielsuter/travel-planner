@@ -54,7 +54,14 @@ class TravelPlanComponent {
       
       print("Generated map: ${plan.toMap()}");
       
-      plansFirebase.push(js.map(plan.toMap()));
+      if(plan.id == null) {
+        // Insert
+        plansFirebase.push(js.map(plan.toMap()));
+      } else {
+        // Update
+        plansFirebase.child(plan.id).set(js.map(plan.toMap()));
+      }
+      
       this.router.go('view_default', {});
     }
   }
