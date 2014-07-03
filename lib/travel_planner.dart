@@ -44,7 +44,7 @@ class TravelPlannerController {
       int index = plans.indexOf(oldPlan);
       plans[index] = travelPlan;
     }).then((value) {
-      scope.apply();
+      scope.apply("cmp.plans");
     });
   }
 
@@ -54,7 +54,7 @@ class TravelPlannerController {
       
       plans.add(travelPlan);
     }).then((value) {
-      scope.apply();
+      scope.apply("cmp.plans");
     });
   }
 
