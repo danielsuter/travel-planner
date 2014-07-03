@@ -6,42 +6,48 @@ import 'package:js/js.dart' as js;
 import 'package:TravelPlanner/model/travel_step.dart';
 import 'package:TravelPlanner/model/transport_type.dart';
 import 'package:TravelPlanner/model/travel_type.dart';
+import 'dart:async';
 
 @Controller(selector: '[todo-planner-controller]', publishAs: 'tp')
 class TravelPlannerController {
   final plansFirebase = new js.Proxy(js.context.Firebase, 'https://travel-planner-dart.firebaseio.com/plans');
   
   Router router;
+  Scope scope;
   
   List<TravelPlan> plans = [];
   
   TravelPlan selectedPlan;
   
-  TravelPlannerController(this.router) {
+  TravelPlannerController(this.router, this.scope) {
     print("controller travel called");
     plansFirebase.on('child_added', (snapshot, String previousChildName) {
-      String id = snapshot.name();
-      
-      final message = snapshot.val();
-      print("Converting id: ${id} name: ${message.name} from: ${message.from} : to: ${message.to}...");
+      new Future((){
+        String id = snapshot.name();
+        
+        final message = snapshot.val();
+        print("Converting id: ${id} name: ${message.name} from: ${message.from} : to: ${message.to}...");
 
-      var travelPlan = new TravelPlan(id, message.name, message.from, message.to);
-      
-      if(js.hasProperty(message, "steps")) {
-        var steps = message.steps;
-        for(int index = 0; index < steps.length; index++) {
-          var step = steps[index];
-          TravelStep travelStep = new TravelStep();
-          travelStep.location = step.location;
-          travelStep.to = step.to;
-          travelStep.from = step.from;
-          travelStep.transportType = TransportType.from(step.transportType);
-          travelStep.travelType = TravelType.from(step.travelType);
-          travelPlan.steps.add(travelStep);
+        var travelPlan = new TravelPlan(id, message.name, message.from, message.to);
+        
+        if(js.hasProperty(message, "steps")) {
+          var steps = message.steps;
+          for(int index = 0; index < steps.length; index++) {
+            var step = steps[index];
+            TravelStep travelStep = new TravelStep();
+            travelStep.location = step.location;
+            travelStep.to = step.to;
+            travelStep.from = step.from;
+            travelStep.transportType = TransportType.from(step.transportType);
+            travelStep.travelType = TravelType.from(step.travelType);
+            travelPlan.steps.add(travelStep);
+          }
         }
-      }
-      
-      plans.add(travelPlan);
+        
+        plans.add(travelPlan);
+      }).then((value) {
+        scope.apply();
+      });
     });
     
     plansFirebase.on('child_removed', (snapshot, String previousChildName) {
