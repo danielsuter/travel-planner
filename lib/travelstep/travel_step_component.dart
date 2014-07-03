@@ -14,8 +14,6 @@ import 'package:TravelPlanner/util/date_util.dart';
 class TravelStepComponent extends AttachAware {
   Scope scope;
   
-  String from; 
-  String to;
   String type; 
   String transport;
   
@@ -27,20 +25,6 @@ class TravelStepComponent extends AttachAware {
   
   
   TravelStepComponent(this.scope) {
-    scope.watch("cmp.from", (newValue, oldValue) {
-      if(DateUtil.isValidDate(newValue)) {
-        DateTime date = DateUtil.DATE_FORMAT.parse(newValue);
-        step.from = date.millisecondsSinceEpoch;
-      }
-    });
-
-    scope.watch("cmp.to", (newValue, oldValue) {
-      if(DateUtil.isValidDate(newValue)) {
-        DateTime date = DateUtil.DATE_FORMAT.parse(newValue);
-        step.to = date.millisecondsSinceEpoch;
-      }
-    });
-    
     scope.watch("cmp.type", (newValue, oldValue) {
       if(newValue != null) {
         List<TravelType> values = TravelType.values;
@@ -61,8 +45,6 @@ class TravelStepComponent extends AttachAware {
   @override
   void attach() {
     if(step != null) {
-      from = step.getFromAsDate();
-      to = step.getToAsDate();
       type = step.travelType.name;
       transport = step.transportType.name;
     }
