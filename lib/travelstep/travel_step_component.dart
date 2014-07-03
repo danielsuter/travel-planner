@@ -4,7 +4,6 @@ import 'package:angular/angular.dart';
 import 'package:TravelPlanner/model/travel_step.dart';
 import 'package:TravelPlanner/model/travel_type.dart';
 import 'package:TravelPlanner/model/transport_type.dart';
-import 'package:TravelPlanner/util/date_util.dart';
 
 @Component(
     selector: 'travel-step',
