@@ -22,43 +22,64 @@ class TravelPlannerController {
   TravelPlannerController(this.router, this.scope) {
     print("controller travel called");
     plansFirebase.on('child_added', (snapshot, String previousChildName) {
-      new Future((){
-        String id = snapshot.name();
-        
-        final message = snapshot.val();
-        print("Converting id: ${id} name: ${message.name} from: ${message.from} : to: ${message.to}...");
-
-        var travelPlan = new TravelPlan(id, message.name, message.from, message.to);
-        
-        if(js.hasProperty(message, "steps")) {
-          var steps = message.steps;
-          for(int index = 0; index < steps.length; index++) {
-            var step = steps[index];
-            TravelStep travelStep = new TravelStep();
-            travelStep.location = step.location;
-            travelStep.to = step.to;
-            travelStep.from = step.from;
-            travelStep.transportType = TransportType.from(step.transportType);
-            travelStep.travelType = TravelType.from(step.travelType);
-            travelPlan.steps.add(travelStep);
-          }
-        }
-        
-        plans.add(travelPlan);
-      }).then((value) {
-        scope.apply();
-      });
+      handleChildAdded(snapshot);
     });
     
     plansFirebase.on('child_removed', (snapshot, String previousChildName) {
       String id = snapshot.name();
       plans.removeWhere((plan) => plan.id == id);
-      print('removed child $id');
     }); 
     
     plansFirebase.on('child_changed', (snapshot, String previousChildName) {
-      print("child changed, todo implement");
+      handleChildChanged(snapshot);
     }); 
+  }
+
+  void handleChildChanged(snapshot) {
+    new Future(() {
+      print("child changed");
+      TravelPlan travelPlan = mapTravelPlan(snapshot);
+      
+      TravelPlan oldPlan = plans.firstWhere((plan) => plan.id == travelPlan.id);
+      int index = plans.indexOf(oldPlan);
+      plans[index] = travelPlan;
+    }).then((value) {
+      scope.apply();
+    });
+  }
+
+  void handleChildAdded(snapshot) {
+    new Future((){
+      var travelPlan = mapTravelPlan(snapshot);
+      
+      plans.add(travelPlan);
+    }).then((value) {
+      scope.apply();
+    });
+  }
+
+  TravelPlan mapTravelPlan(snapshot) {
+    String id = snapshot.name();
+    
+    final message = snapshot.val();
+    print("Converting id: ${id} name: ${message.name} from: ${message.from} : to: ${message.to}...");
+        
+    var travelPlan = new TravelPlan(id, message.name, message.from, message.to);
+    
+    if(js.hasProperty(message, "steps")) {
+      var steps = message.steps;
+      for(int index = 0; index < steps.length; index++) {
+        var step = steps[index];
+        TravelStep travelStep = new TravelStep();
+        travelStep.location = step.location;
+        travelStep.to = step.to;
+        travelStep.from = step.from;
+        travelStep.transportType = TransportType.from(step.transportType);
+        travelStep.travelType = TravelType.from(step.travelType);
+        travelPlan.steps.add(travelStep);
+      }
+    }
+    return travelPlan;
   }
   
   void addNew() {
