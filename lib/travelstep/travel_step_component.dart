@@ -11,7 +11,7 @@ import 'package:TravelPlanner/util/date_util.dart';
     templateUrl: 'packages/TravelPlanner/travelstep/travel_step_component.html',
     useShadowDom: false,
     publishAs: 'cmp')
-class TravelStepComponent {
+class TravelStepComponent extends AttachAware {
   Scope scope;
   
   String from; 
@@ -27,8 +27,6 @@ class TravelStepComponent {
   
   
   TravelStepComponent(this.scope) {
-    print("constructor of TravelStepComponent called");
-    
     scope.watch("cmp.from", (newValue, oldValue) {
       if(DateUtil.isValidDate(newValue)) {
         DateTime date = DateUtil.DATE_FORMAT.parse(newValue);
@@ -59,6 +57,14 @@ class TravelStepComponent {
       }
     });
   }
-  
 
+  @override
+  void attach() {
+    if(step != null) {
+      from = step.getFromAsDate();
+      to = step.getToAsDate();
+      type = step.travelType.name;
+      transport = step.transportType.name;
+    }
+  }
 }
