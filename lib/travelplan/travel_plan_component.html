@@ -1,27 +1,30 @@
 <div >
-    <div class="row">
-      <div class="col-xs-4">Name</div>
+  <form name="planForm">
+    <div class="form-group" ng-class="{'has-error': planForm['name'].invalid}">
+      <label class="control-label col-xs-4">Name</label>
       <div class="col-xs-8">
-         <input type="text" class="form-control" ng-model="cmp.plan.name" placeholder="Enter a name">
+         <input type="text" class="form-control" ng-model="cmp.plan.name" name="name" placeholder="Enter a name" ng-required>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-xs-4">From</div>
+    <div class="form-group" ng-class="{'has-error': planForm['from'].invalid}">
+      <label class="control-label col-xs-4">From</label>
       <div class="col-xs-8">
-        <input type="text" class="form-control" ng-model="cmp.plan.from" placeholder="dd.MM.yyyy">
+        <input type="text" class="form-control" ng-model="cmp.plan.from" name="from" placeholder="dd.MM.yyyy" ng-required>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-xs-4">To</div>
+    <div class="form-group" ng-class="{'has-error': planForm['to'].invalid}">
+      <label class="control-label col-xs-4">To</label>
       <div class="col-xs-8">
-        <input type="text" class="form-control" ng-model="cmp.plan.to" placeholder="dd.MM.yyyy">
+        <input type="text" class="form-control" ng-model="cmp.plan.to" name="to" placeholder="dd.MM.yyyy" ng-required>
       </div>
     </div>
     
+    <div class="col-xs-12 alert alert-danger" ng-hide="planForm.valid" role="alert" style="margin-top: 20px;">There are invalid values!</div>
+
     <div class="row col-xs-12">
-      <button type="button" class="btn btn-primary" ng-click="cmp.add()">Save</button>
+      <button type="button" class="btn btn-primary" ng-click="cmp.add()" ng-disabled="planForm.invalid">Save</button>
       <a href="/" class="btn btn-warning">Cancel</a>
     </div>
     
@@ -36,8 +39,8 @@
       </div>
     </div>
 
-    
      <div class="row col-xs-12">
         <button type="button" class="btn btn-success" ng-click="cmp.addStep()" style="float: right;">Add step...</button>
      </div>
+  </form>        
 </div>
