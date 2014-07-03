@@ -16,10 +16,6 @@ class TravelPlanComponent {
   Router router;
   Scope scope;
   
-  String name;
-  String fromAsString;
-  String toAsString;
-  
   bool isValid = true;
   
   // Deprecated but impossible to replace, since the new syntax is not ready
@@ -27,31 +23,13 @@ class TravelPlanComponent {
   TravelPlan plan;
   
   TravelPlanComponent(this.router, this.scope) {
-    scope.watch("cmp.plan", (TravelPlan newValue, oldValue) {
-      if(newValue != null) {
-        name = newValue.name;
-        fromAsString = newValue.from;
-        toAsString = newValue.to;
-      }
-    });
+
   }
   
   void add() {
-    
-    DateTime from;
-    DateTime to;
-    try {
-      from = DateUtil.DATE_FORMAT.parse(fromAsString);
-      to = DateUtil.DATE_FORMAT.parse(toAsString);
-    } on FormatException catch(e, stacktrace) {
-      isValid = false;
-    }
+    isValid = DateUtil.isValidDate(plan.from) && DateUtil.isValidDate(plan.to);
     
     if(isValid) {
-      plan.name = name;
-      plan.to = toAsString;
-      plan.from = fromAsString;
-      
       print("Generated map: ${plan.toMap()}");
       
       if(plan.id == null) {
