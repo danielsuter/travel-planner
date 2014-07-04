@@ -7,9 +7,9 @@ class DateUtil {
   static bool isValidDate(String dateAsString) {
     try {
       DATE_FORMAT.parse(dateAsString);
+      return true;
     } on FormatException catch(e, stacktrace) {
       return false;
     }
-    return true;
   }  
 }

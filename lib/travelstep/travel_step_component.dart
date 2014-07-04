@@ -10,7 +10,7 @@ import 'package:TravelPlanner/model/transport_type.dart';
     templateUrl: 'packages/TravelPlanner/travelstep/travel_step_component.html',
     useShadowDom: false,
     publishAs: 'cmp')
-class TravelStepComponent extends AttachAware {
+class TravelStepComponent extends AttachAware implements ShadowRootAware {
   Scope scope;
   
   String type; 
@@ -19,8 +19,6 @@ class TravelStepComponent extends AttachAware {
   // Deprecated but impossible to replace, since the new syntax is not ready
   @NgTwoWay('step')
   TravelStep step;
-  
-  List<TransportType> transportTypes = TransportType.values;
   
   
   TravelStepComponent(this.scope) {
@@ -47,5 +45,10 @@ class TravelStepComponent extends AttachAware {
       type = step.travelType.name;
       transport = step.transportType.name;
     }
+  }
+
+  @override
+  void onShadowRoot(Object t) {
+    print("DOM loaded");
   }
 }

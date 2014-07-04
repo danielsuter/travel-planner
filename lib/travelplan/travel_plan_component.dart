@@ -48,7 +48,9 @@ class TravelPlanComponent {
     plan.steps.remove(step);
   }
   
+  
   void addStep() {
     plan.steps.add(new TravelStep());
   }
 }
+

@@ -1,5 +1,5 @@
 <div >
-  <form name="planForm" id="planForm">
+  <form name="planForm" id="planForm" class="form-horizontal">
     <div class="form-group" ng-class="{'has-error': planForm['name'].invalid}">
       <label class="control-label col-xs-4">Name</label>
       <div class="col-xs-8">
@@ -10,14 +10,14 @@
     <div class="form-group" ng-class="{'has-error': planForm['from'].invalid}">
       <label class="control-label col-xs-4">From</label>
       <div class="col-xs-8">
-        <input type="text" class="form-control" ng-model="cmp.plan.from" name="from" placeholder="dd.MM.yyyy" ng-required="true">
+        <input type="text" class="form-control" ng-model="cmp.plan.from" name="from" placeholder="dd.MM.yyyy" ng-required="true" vs-date>
       </div>
     </div>
 
     <div class="form-group" ng-class="{'has-error': planForm['to'].invalid}">
       <label class="control-label col-xs-4">To</label>
       <div class="col-xs-8">
-        <input type="text" class="form-control" ng-model="cmp.plan.to" name="to" placeholder="dd.MM.yyyy" ng-required="true">
+        <input type="text" class="form-control" ng-model="cmp.plan.to" name="to" placeholder="dd.MM.yyyy" ng-required="true" vs-date>
       </div>
     </div>
     
