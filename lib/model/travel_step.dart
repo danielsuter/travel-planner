@@ -15,6 +15,11 @@ class TravelStep {
   String description;
   
   Map toMap() {
-    return {"location": location, "from": from, "to": to, "travelType": travelType.name, "transportType": transportType.name, "description": description};
+    return {"location": location, 
+      "from": from, 
+      "to": to, 
+      "travelType": travelType.name, 
+      "transportType": transportType == null ? null : transportType.name, 
+      "description": description};
   }
 }

@@ -74,8 +74,10 @@ class TravelPlannerController {
         travelStep.location = step.location;
         travelStep.to = step.to;
         travelStep.from = step.from;
-        travelStep.transportType = TransportType.from(step.transportType);
         travelStep.travelType = TravelType.from(step.travelType);
+        if(js.hasProperty(step, "transportType")) {
+          travelStep.transportType = TransportType.from(step.transportType);
+        }
         travelPlan.steps.add(travelStep);
       }
     }
