@@ -42,8 +42,10 @@ class TravelStepComponent extends AttachAware implements ShadowRootAware {
   @override
   void attach() {
     if(step != null) {
-      type = step.travelType.name;
-      if(transport != null) {
+      if(step.transportType != null) {
+        type = step.travelType.name;
+      }
+      if(step.transportType != null) {
         transport = step.transportType.name;
       }
     }
