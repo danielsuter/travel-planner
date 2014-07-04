@@ -50,7 +50,16 @@ class TravelPlanComponent {
   
   
   void addStep() {
-    plan.steps.add(new TravelStep());
+    var travelStep = new TravelStep();
+    
+    if(plan.steps.isEmpty) {
+      travelStep.from = plan.from;
+    } else {
+      TravelStep previous = plan.steps.last;
+      travelStep.from = previous.to;
+    }
+    
+    plan.steps.add(travelStep);
   }
 }
 
