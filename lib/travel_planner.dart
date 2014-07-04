@@ -26,8 +26,7 @@ class TravelPlannerController {
     });
     
     plansFirebase.on('child_removed', (snapshot, String previousChildName) {
-      String id = snapshot.name();
-      plans.removeWhere((plan) => plan.id == id);
+      handleChildRemoved(snapshot);
     }); 
     
     plansFirebase.on('child_changed', (snapshot, String previousChildName) {
@@ -35,9 +34,17 @@ class TravelPlannerController {
     }); 
   }
 
+  void handleChildRemoved(snapshot) {
+    new Future(() {
+      String id = snapshot.name();
+      plans.removeWhere((plan) => plan.id == id);
+    }).then((value) {
+      scope.apply("cmp.plans");
+    });
+  }
+
   void handleChildChanged(snapshot) {
     new Future(() {
-      print("child changed");
       TravelPlan travelPlan = mapTravelPlan(snapshot);
       
       TravelPlan oldPlan = plans.firstWhere((plan) => plan.id == travelPlan.id);
