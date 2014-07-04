@@ -13,7 +13,6 @@ class VsDateValidator implements NgValidator {
   
   @override
   bool isValid(modelValue) {
-    print("modelValue: ${modelValue}");
     if(modelValue != null) {
       return DateUtil.isValidDate(modelValue);
     }

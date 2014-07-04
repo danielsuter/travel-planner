@@ -1,18 +1,20 @@
 <div class="well" style="margin-top: 20px;">
-  <form role="form">
-    <div class="form-group">
-      <label for="locationId">Location</label> 
+  <form role="form" name="stepForm">
+    <div class="form-group" ng-class="{'has-error': stepForm['location'].invalid}">
+      <label for="locationId" class="control-label">Location</label> 
       <input type="text" ng-model="cmp.step.location"
         class="form-control" id="locationId"
+        name="location" ng-required="true"
         placeholder="Enter location">
+        
     </div>
 
     <div class="row" style="margin-bottom: 20px;">
       <div class="col-xs-6">
         <div class="input-group">
-          <div class="form-group">
-            <label for="fromId">From</label> 
-            <input type="text" vs-date
+          <div class="form-group" ng-class="{'has-error': stepForm['fromStep'].invalid}">
+            <label for="fromId" class="control-label">From</label> 
+            <input type="text" vs-date name="fromStep"
               class="form-control" id="fromId" placeholder="dd.MM.yyyy"
               ng-model="cmp.step.from">
           </div>
@@ -21,9 +23,9 @@
 
       <div class="col-xs-6">
         <div class="input-group">
-          <div class="form-group">
-            <label for="toId">To</label> 
-            <input type="text" vs-date
+          <div class="form-group" ng-class="{'has-error': stepForm['toStep'].invalid}">
+            <label for="toId" class="control-label">To</label> 
+            <input type="text" vs-date name="toStep"
               class="form-control" id="toId" placeholder="dd.MM.yyyy"
               ng-model="cmp.step.to">
           </div>

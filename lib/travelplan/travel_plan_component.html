@@ -21,11 +21,9 @@
       </div>
     </div>
     
-    <div class="col-xs-12 alert alert-danger" ng-hide="planForm.valid" role="alert" style="margin-top: 20px;">There are invalid values!</div>
-
     <div class="row col-xs-12">
-      <button type="button" class="btn btn-primary" ng-click="cmp.add()" ng-disabled="planForm.invalid">Save</button>
-      <a href="/" class="btn btn-warning">Cancel</a>
+        <button type="button" class="btn btn-primary" ng-click="cmp.add()" ng-disabled="planForm.invalid">Save</button>
+        <a href="/" class="btn btn-warning">Cancel</a>
     </div>
     
     <div class="row" ng-repeat="step in cmp.plan.steps">
