@@ -37,6 +37,10 @@ packages:
     description: di
     source: hosted
     version: "0.0.40"
+  firebase:
+    description: firebase
+    source: hosted
+    version: "0.1.0"
   html5lib:
     description: html5lib
     source: hosted

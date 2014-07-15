@@ -6,6 +6,9 @@ dependencies:
   shadow_dom: any
   js: any
   angular_ui: any
+  firebase: any
+dependency_overrides:
+  browser: any   
 transformers:
 - angular:
      html_files:

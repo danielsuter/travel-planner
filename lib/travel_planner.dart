@@ -7,10 +7,13 @@ import 'package:TravelPlanner/model/travel_step.dart';
 import 'package:TravelPlanner/model/transport_type.dart';
 import 'package:TravelPlanner/model/travel_type.dart';
 import 'dart:async';
+import 'package:firebase/firebase.dart';
 
 @Controller(selector: '[todo-planner-controller]', publishAs: 'tp')
 class TravelPlannerController {
   final plansFirebase = new js.Proxy(js.context.Firebase, 'https://travel-planner-dart.firebaseio.com/plans');
+  
+  final Firebase plansFirebase2 = new Firebase('https://travel-planner-dart.firebaseio.com/plans');
   
   Router router;
   Scope scope;
@@ -21,9 +24,13 @@ class TravelPlannerController {
   
   TravelPlannerController(this.router, this.scope) {
     print("controller travel called");
-    plansFirebase.on('child_added', (snapshot, String previousChildName) {
-      handleChildAdded(snapshot);
+    plansFirebase2.onChildAdded.listen((Event e) {
+      handleChildAdded(e.snapshot);
     });
+    
+//    plansFirebase.on('child_added', (snapshot, String previousChildName) {
+//      handleChildAdded(snapshot);
+//    });
     
     plansFirebase.on('child_removed', (snapshot, String previousChildName) {
       handleChildRemoved(snapshot);
@@ -55,7 +62,7 @@ class TravelPlannerController {
     });
   }
 
-  void handleChildAdded(snapshot) {
+  void handleChildAdded(DataSnapshot snapshot) {
     new Future((){
       var travelPlan = mapTravelPlan(snapshot);
       
@@ -65,28 +72,27 @@ class TravelPlannerController {
     });
   }
 
-  TravelPlan mapTravelPlan(snapshot) {
+  TravelPlan mapTravelPlan(DataSnapshot snapshot) {
     String id = snapshot.name();
     
-    final message = snapshot.val();
-    print("Converting id: ${id} name: ${message.name} from: ${message.from} : to: ${message.to}...");
+    final Map<String, dynamic> message = snapshot.val();
+    print("Converting message: ${message} with id $id");
         
-    var travelPlan = new TravelPlan(id, message.name, message.from, message.to);
+    var travelPlan = new TravelPlan(id, message['name'], message['from'], message['to']);
     
-    if(js.hasProperty(message, "steps")) {
-      var steps = message.steps;
+    if(message['steps'] != null) {
+      var steps = message['steps'];
       for(int index = 0; index < steps.length; index++) {
         var step = steps[index];
         TravelStep travelStep = new TravelStep();
-        travelStep.location = step.location;
-        travelStep.to = step.to;
-        if(js.hasProperty(step, "description")) {
-          travelStep.description = step.description;
-        }
-        travelStep.from = step.from;
-        travelStep.travelType = TravelType.from(step.travelType);
-        if(js.hasProperty(step, "transportType")) {
-          travelStep.transportType = TransportType.from(step.transportType);
+        travelStep.location = step['location'];
+        travelStep.to = step['to'];
+        travelStep.description = step['description'];
+        travelStep.from = step['from'];
+        travelStep.travelType = TravelType.from(step['travelType']);
+        var transportType = step['transportType'];
+        if(transportType != null) {
+          travelStep.transportType = TransportType.from(transportType);
         }
         travelPlan.steps.add(travelStep);
       }
