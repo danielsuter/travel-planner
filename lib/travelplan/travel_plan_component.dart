@@ -2,9 +2,9 @@ library travel_plan_component;
 
 import 'package:angular/angular.dart';
 import 'package:TravelPlanner/model/travelplan.dart';
-import 'package:js/js.dart' as js;
 import 'package:TravelPlanner/model/travel_step.dart';
 import 'package:TravelPlanner/util/date_util.dart';
+import 'package:firebase/firebase.dart';
 
 @Component(
     selector: 'travel-plan',
@@ -12,7 +12,8 @@ import 'package:TravelPlanner/util/date_util.dart';
     useShadowDom: false,
     publishAs: 'cmp')
 class TravelPlanComponent {
-  final plansFirebase = new js.Proxy(js.context.Firebase, 'https://travel-planner-dart.firebaseio.com/plans');
+  final Firebase plansFirebase = new Firebase('https://travel-planner-dart.firebaseio.com/plans');
+  
   Router router;
   Scope scope;
   
@@ -34,10 +35,11 @@ class TravelPlanComponent {
       
       if(plan.id == null) {
         // Insert
-        plansFirebase.push(js.map(plan.toMap()));
+        plansFirebase.push().set(plan.toMap());
       } else {
         // Update
-        plansFirebase.child(plan.id).set(js.map(plan.toMap()));
+        Firebase child = plansFirebase.child(plan.id);
+        child.set(plan.toMap());
       }
       
       this.router.go('view_default', {});
