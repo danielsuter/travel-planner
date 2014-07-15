@@ -6,6 +6,7 @@ import 'package:TravelPlanner/model/travel_step.dart';
 import 'package:TravelPlanner/model/transport_type.dart';
 import 'package:TravelPlanner/model/travel_type.dart';
 import 'package:firebase/firebase.dart';
+import 'package:TravelPlanner/util/string_utils.dart';
 
 @Controller(selector: '[todo-planner-controller]', publishAs: 'tp')
 class TravelPlannerController {
@@ -64,7 +65,7 @@ class TravelPlannerController {
         travelStep.from = step['from'];
         travelStep.travelType = TravelType.from(step['travelType']);
         var transportType = step['transportType'];
-        if (transportType != null) {
+        if (!StringUtils.isEmpty(transportType)) {
           travelStep.transportType = TransportType.from(transportType);
         }
         travelPlan.steps.add(travelStep);
