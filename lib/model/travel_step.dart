@@ -20,6 +20,6 @@ class TravelStep {
       "to": to, 
       "travelType": travelType.name, 
       "transportType": transportType == null ? "" : transportType.name, 
-      "description": description};
+      "description": description == null ? "" : description};
   }
 }
