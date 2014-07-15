@@ -11,9 +11,7 @@ import 'package:firebase/firebase.dart';
 
 @Controller(selector: '[todo-planner-controller]', publishAs: 'tp')
 class TravelPlannerController {
-  final plansFirebase = new js.Proxy(js.context.Firebase, 'https://travel-planner-dart.firebaseio.com/plans');
-  
-  final Firebase plansFirebase2 = new Firebase('https://travel-planner-dart.firebaseio.com/plans');
+  final Firebase plansFirebase = new Firebase('https://travel-planner-dart.firebaseio.com/plans');
   
   Router router;
   Scope scope;
@@ -24,24 +22,13 @@ class TravelPlannerController {
   
   TravelPlannerController(this.router, this.scope) {
     print("controller travel called");
-    plansFirebase2.onChildAdded.listen((Event e) {
-      handleChildAdded(e.snapshot);
-    });
     
-//    plansFirebase.on('child_added', (snapshot, String previousChildName) {
-//      handleChildAdded(snapshot);
-//    });
-    
-    plansFirebase.on('child_removed', (snapshot, String previousChildName) {
-      handleChildRemoved(snapshot);
-    }); 
-    
-    plansFirebase.on('child_changed', (snapshot, String previousChildName) {
-      handleChildChanged(snapshot);
-    }); 
+    plansFirebase.onChildAdded.listen((Event e) => handleChildAdded(e.snapshot));
+    plansFirebase.onChildChanged.listen((Event e) => handleChildChanged(e.snapshot)); 
+    plansFirebase.onChildRemoved.listen((Event e) => handleChildRemoved(e.snapshot)); 
   }
 
-  void handleChildRemoved(snapshot) {
+  void handleChildRemoved(DataSnapshot snapshot) {
     new Future(() {
       String id = snapshot.name();
       plans.removeWhere((plan) => plan.id == id);
@@ -50,7 +37,7 @@ class TravelPlannerController {
     });
   }
 
-  void handleChildChanged(snapshot) {
+  void handleChildChanged(DataSnapshot snapshot) {
     new Future(() {
       TravelPlan travelPlan = mapTravelPlan(snapshot);
       
